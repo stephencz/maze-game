@@ -27,14 +27,14 @@ public class MazeFactory
 	{
 		//Create Maze with all walls filled in
 		Maze maze = new Maze(width, height);
-		Stack<TileWalled> stack = new Stack<TileWalled>();
+		Stack<Tile> stack = new Stack<Tile>();
 		Random random = new Random();
 		
 		//Get Random Tile and set to Visited
 		int row = random.nextInt(maze.getRows());
 		int col = random.nextInt(maze.getColumns());
 		
-		TileWalled active = (TileWalled) maze.getTile(row, col);
+		Tile active = (Tile) maze.getTile(row, col);
 		active.setVisited(true);
 				
 		//Calculate the number of remaining unvisited Tiles
@@ -46,7 +46,7 @@ public class MazeFactory
 			if(!unvisited.isEmpty())
 			{
 				//Choose a random neighbor
-				TileWalled target = (TileWalled) unvisited.get(random.nextInt(unvisited.size()));
+				Tile target = unvisited.get(random.nextInt(unvisited.size()));
 				
 				//Push current cell to stack
 				stack.push(active);
@@ -82,7 +82,7 @@ public class MazeFactory
 		int row = random.nextInt(maze.getRows());
 		int col = random.nextInt(maze.getColumns());
 		
-		TileWalled active = (TileWalled) maze.getTile(row, col);
+		Tile active = maze.getTile(row, col);
 		active.setVisited(true);
 				
 		//Calculate the number of remaining unvisited Tiles
@@ -92,7 +92,7 @@ public class MazeFactory
 		while(remaining > 0)
 		{
 			//Get a random neighbor of the active Tile.
-			TileWalled target = (TileWalled) maze.getRandomNeighbor(random, active);
+			Tile target = maze.getRandomNeighbor(random, active);
 			
 			//If that Tile has not been visited, carve a path between
 			//the active and the target. Set the target to visited

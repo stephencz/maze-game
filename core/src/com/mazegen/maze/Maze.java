@@ -10,7 +10,7 @@ public class Maze
 	
 	private final int columns;
 	
-	private TileWalled[][] maze;
+	private Tile[][] maze;
 	
 	private Tile entrance;
 	
@@ -20,7 +20,7 @@ public class Maze
 	{
 		this.rows = rows;
 		this.columns = columns;
-		this.maze = new TileWalled[rows][columns];
+		this.maze = new Tile[rows][columns];
 		
 		this.populate();
 		
@@ -34,7 +34,7 @@ public class Maze
 	 * @param origin The origin Tile.
 	 * @param target The target Tile.
 	 */
-	public void carvePath(TileWalled origin, TileWalled target)
+	public void carvePath(Tile origin, Tile target)
 	{		
 		if(origin.getColumn() < target.getColumn())
 		{
@@ -63,8 +63,8 @@ public class Maze
 	
 	public void setEntranceAndExit(Random random)
 	{
-		TileWalled entrance = this.getTile(random.nextInt(this.getRows()), 0);
-		TileWalled exit = this.getTile(random.nextInt(this.getRows()), this.getColumns() - 1);
+		Tile entrance = this.getTile(random.nextInt(this.getRows()), 0);
+		Tile exit = this.getTile(random.nextInt(this.getRows()), this.getColumns() - 1);
 		
 		this.entrance = entrance;
 		entrance.setWall(Direction.NORTH, false);
@@ -221,7 +221,7 @@ public class Maze
 		return unvisited;
 	}
 	
-	public TileWalled findEntranceTile()
+	public Tile findEntranceTile()
 	{
 		for(int i = 0; i < this.getRows(); i++)
 		{
@@ -243,22 +243,22 @@ public class Maze
 		{
 			for(int j = 0; j < this.columns; j++)
 			{
-				this.maze[i][j] = new TileWalled(this, i, j);
+				this.maze[i][j] = new Tile(this, i, j, 4);
 			}
 		}
 	}
 	
-	public TileWalled[][] getMaze()
+	public Tile[][] getMaze()
 	{
 		return maze;
 	}
 
-	public void setMaze(TileWalled[][] maze)
+	public void setMaze(Tile[][] maze)
 	{
 		this.maze = maze;
 	}
 	
-	public TileWalled getTile(int row, int col)
+	public Tile getTile(int row, int col)
 	{
 		return this.maze[row][col];
 	}
