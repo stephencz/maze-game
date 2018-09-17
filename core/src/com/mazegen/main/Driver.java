@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.mazegen.maze.MazeType;
+import com.mazegen.maze.GenerationType;
+import com.mazegen.maze.TileType;
 import com.mazegen.screen.GameScreen;
 
 public class Driver extends Game 
@@ -27,7 +28,7 @@ public class Driver extends Game
 		camera.setToOrtho(true, GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT);
 		viewport = new FillViewport(GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT, camera);
 		
-		this.setScreen(new GameScreen(MazeType.RECURSIVE_BACKTRACK, 100, 100));
+		this.setScreen(new GameScreen(TileType.SQUARE, GenerationType.RECURSIVE_BACKTRACK, 10, 10));
 	}
 
 	@Override

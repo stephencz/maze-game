@@ -13,12 +13,6 @@ public class MazeFactory
 		return recursiveBacktrackAlgorithm(maze);
 	}
 	
-	public SquareMaze generateSquareAldousBroderMaze(int width, int height)
-	{
-		SquareMaze maze = new SquareMaze(width, height);
-		return aldousBroderAlgorithm(maze);
-	}
-	
 	private <T extends Maze> T recursiveBacktrackAlgorithm(T maze)
 	{
 		//Create random generator.
@@ -67,6 +61,12 @@ public class MazeFactory
 		maze.setEntranceAndExit(random);
 		
 		return maze;
+	}
+	
+	public SquareMaze generateSquareAldousBroderMaze(int width, int height)
+	{
+		SquareMaze maze = new SquareMaze(width, height);
+		return aldousBroderAlgorithm(maze);
 	}
 	
 	private <T extends Maze> T aldousBroderAlgorithm(T maze)

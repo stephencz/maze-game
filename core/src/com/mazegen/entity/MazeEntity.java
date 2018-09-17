@@ -2,7 +2,6 @@ package com.mazegen.entity;
 
 import com.mazegen.maze.Maze;
 import com.mazegen.maze.draw.MazeDrawer;
-import com.mazegen.maze.draw.SquareMazeDrawer;
 
 public abstract class MazeEntity extends Entity
 {
@@ -62,11 +61,11 @@ public abstract class MazeEntity extends Entity
 	
 	protected float calculateXPos()
 	{
-		return (float) this.row * drawer.getTileSize();
+		return (float) this.row * drawer.getSettings().tileSize;
 	}
 	
 	protected float calculateYPos()
 	{
-		return (float) this.column * drawer.getTileSize();
+		return (float) this.column * drawer.getSettings().tileSize;
 	}
 }

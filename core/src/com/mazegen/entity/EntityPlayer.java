@@ -15,10 +15,10 @@ public class EntityPlayer extends MazeEntity
 	{
 		super(maze, drawer, row, col, 0, 0);
 		
-		this.width = drawer.getTileSize() - drawer.getTileSize() / 2;
-		this.height = drawer.getTileSize() - drawer.getTileSize() / 2;
-		this.x = this.calculateXPos() + drawer.getTileSize() / 4 + drawer.getWallSize() / 2;
-		this.y = this.calculateYPos() + drawer.getTileSize() / 4 + drawer.getWallSize() / 2;		
+		this.width = drawer.getSettings().tileSize - drawer.getSettings().tileSize / 2;
+		this.height = drawer.getSettings().tileSize - drawer.getSettings().tileSize / 2;
+		this.x = this.calculateXPos() + drawer.getSettings().tileSize / 4 + drawer.getSettings().tileSize / 2;
+		this.y = this.calculateYPos() + drawer.getSettings().tileSize / 4 + drawer.getSettings().tileSize / 2;		
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class EntityPlayer extends MazeEntity
 	private void drawPlayer()
 	{
 		Driver.shape.begin(ShapeType.Filled);
-		Driver.shape.setColor(drawer.getPlayerColor());
+		Driver.shape.setColor(drawer.getSettings().playerColor);
 		Driver.shape.rect(x, y, width, height);
 		Driver.shape.end();
 	}
@@ -89,20 +89,20 @@ public class EntityPlayer extends MazeEntity
 	
 	private void cameraTrackPlayer()
 	{
-		Driver.camera.position.lerp(new Vector3(this.x + drawer.getTileSize() / 4, this.y + drawer.getTileSize() / 4, 0), 0.2f);	
+		Driver.camera.position.lerp(new Vector3(this.x + drawer.getSettings().tileSize / 4, this.y + drawer.getSettings().tileSize / 4, 0), 0.2f);	
 	}
 	
 	@Override
 	public void setRow(int row)
 	{
 		this.row = row;
-		this.x = this.calculateXPos() + drawer.getTileSize() / 4 + drawer.getWallSize() / 2;
+		this.x = this.calculateXPos() + drawer.getSettings().tileSize / 4 + drawer.getSettings().wallSize / 2;
 	}
 	
 	@Override
 	public void setColumn(int column)
 	{
 		this.column = column;
-		this.y = this.calculateYPos() + drawer.getTileSize() / 4 + drawer.getWallSize() / 2;
+		this.y = this.calculateYPos() + drawer.getSettings().tileSize / 4 + drawer.getSettings().wallSize / 2;
 	}
 }
