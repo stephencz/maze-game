@@ -13,7 +13,6 @@ import com.mazegen.util.RenderUtil;
 
 public class GameScreen implements Screen
 {
-
 	private TileType tileType;
 	
 	private GenerationType genType;
