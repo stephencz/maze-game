@@ -1,37 +1,38 @@
-package com.mazegen.maze;
+package com.mazegen.maze.draw;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.mazegen.main.Driver;
+import com.mazegen.maze.Maze;
 
 public class MazeDrawer
 {
 
-	private Maze maze;
+	protected Maze maze;
 	
-	private int wallSize;
+	protected int wallSize;
 	
-	private int tileSize;
+	protected int tileSize;
 	
-	private int mazeWidth;
+	protected int mazeWidth;
 	
-	private int mazeHeight;
+	protected int mazeHeight;
 	
-	private int sightRange;
+	protected int sightRange;
 	
-	private Color bgColor;
+	protected static Color bgColor;
 	
-	private Color tileColor;
+	protected Color tileColor;
 	
-	private Color visitedColor;
+	protected Color visitedColor;
 	
-	private Color wallColor;
+	protected Color wallColor;
 	
-	private Color entranceColor;
+	protected Color entranceColor;
 	
-	private Color exitColor;
+	protected Color exitColor;
 	
-	private Color playerColor;
+	protected Color playerColor;
 		
 	public MazeDrawer(Maze maze, int tSize, int wSize, int sight)
 	{

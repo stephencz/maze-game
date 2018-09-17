@@ -25,9 +25,9 @@ public class Driver extends Game
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT);
-		viewport = new FillViewport(GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT, camera);	
+		viewport = new FillViewport(GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT, camera);
 		
-		this.setScreen(new GameScreen(MazeType.RECURSIVE_BACKTRACK, 30, 30));
+		this.setScreen(new GameScreen(MazeType.RECURSIVE_BACKTRACK, 100, 100));
 	}
 
 	@Override

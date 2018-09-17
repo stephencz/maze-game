@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.mazegen.main.Driver;
 import com.mazegen.maze.Maze;
-import com.mazegen.maze.MazeDrawer;
+import com.mazegen.maze.draw.MazeDrawer;
 
 public class EntityPlayer extends MazeEntity
 {	

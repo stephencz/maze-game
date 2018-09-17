@@ -1,7 +1,8 @@
 package com.mazegen.entity;
 
 import com.mazegen.maze.Maze;
-import com.mazegen.maze.MazeDrawer;
+import com.mazegen.maze.draw.MazeDrawer;
+import com.mazegen.maze.draw.SquareMazeDrawer;
 
 public abstract class MazeEntity extends Entity
 {

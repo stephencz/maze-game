@@ -4,76 +4,64 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Maze
-{	
-	private final int rows;
+public abstract class Maze
+{		
+	protected final int rows;
 	
-	private final int columns;
+	protected final int columns;
 	
-	private Tile[][] maze;
+	protected final int sides;
 	
-	private Tile entrance;
+	protected Tile[][] maze;
 	
-	private Tile exit;
+	protected Tile entrance;
 	
-	public Maze(int rows, int columns)
+	protected Tile exit;
+	
+	public Maze(int rows, int columns, int sides)
 	{
 		this.rows = rows;
 		this.columns = columns;
+		this.sides = sides;
+		
 		this.maze = new Tile[rows][columns];
-		
-		this.populate();
-		
+			
 		this.entrance = null;
 		this.exit = null;
+		
+		this.populate();
 	}
 
+	abstract protected void populate();
+	
 	/**
 	 * Carves a path between two Tiles. The Tiles must be neighbors for
 	 * the method to work correctly.
 	 * @param origin The origin Tile.
 	 * @param target The target Tile.
 	 */
-	public void carvePath(Tile origin, Tile target)
-	{		
-		if(origin.getColumn() < target.getColumn())
-		{
-			origin.setWall(Direction.SOUTH, false);
-			target.setWall(Direction.NORTH, false);
-		}
-		
-		if(origin.getColumn() > target.getColumn())
-		{
-			origin.setWall(Direction.NORTH, false);
-			target.setWall(Direction.SOUTH, false);
-		}
-		
-		if(origin.getRow() < target.getRow())
-		{
-			origin.setWall(Direction.EAST, false);
-			target.setWall(Direction.WEST, false);
-		}
-		
-		if(origin.getRow() > target.getRow())
-		{
-			origin.setWall(Direction.WEST, false);
-			target.setWall(Direction.EAST, false);	
-		}
-	}
+	abstract public void carvePath(Tile origin, Tile target);
 	
-	public void setEntranceAndExit(Random random)
-	{
-		Tile entrance = this.getTile(random.nextInt(this.getRows()), 0);
-		Tile exit = this.getTile(random.nextInt(this.getRows()), this.getColumns() - 1);
-		
-		this.entrance = entrance;
-		entrance.setWall(Direction.NORTH, false);
-		entrance.setEntrance(true);
-		
-		this.exit = exit;
-		exit.setWall(Direction.SOUTH, false);
-		exit.setExit(true);
-	}
+	/**
+	 * Randomly sets the entrance and exit to the maze.
+	 * @param random A random generator.
+	 */
+	abstract public void setEntranceAndExit(Random random);
+	
+	/**
+	 * Returns a random Tile which is a neighbor to the passed in Tile.
+	 * @param random A Random generator.
+	 * @param tile The Tile to get a neighbor of.
+	 * @return A random neighbor Tile.
+	 */
+	abstract public Tile getRandomNeighbor(Random random, Tile tile);
+	
+	/**
+	 * Gets the Tiles to the North, East, South, and West of the passed in Tile.
+	 * @param tile The Tile to get the neighbors of.
+	 * @return An ArrayList<Tile> containing all the found neighbors.
+	 */
+	abstract public ArrayList<Tile> getNeighbors(Tile tile);
 	
 	/**
 	 * Checks if the passed in row and column position is within the bounds
@@ -93,117 +81,6 @@ public class Maze
 		{
 			return false;
 		}
-	}
-	
-	/**
-	 * Gets the Tile to the North of the passed in Tile.
-	 * @param tile The origin Tile.
-	 * @return The Tile to the North of the origin Tile. Null if no Tile is found.
-	 */
-	public Tile getNorthNeighbor(Tile tile)
-	{
-		if(this.isWithinBounds(tile.getRow() - 1, tile.getColumn()))
-		{
-			if(this.getTile(tile.getRow() - 1, tile.getColumn()) != null)
-			{
-				return this.getTile(tile.getRow() - 1, tile.getColumn());
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Gets the Tile to the South of the passed in Tile.
-	 * @param tile The origin Tile.
-	 * @return The Tile to the South of the origin Tile. Null if no Tile is found.
-	 */
-	public Tile getSouthNeighbor(Tile tile)
-	{
-		if(this.isWithinBounds(tile.getRow() + 1, tile.getColumn()))
-		{
-			if(this.getTile(tile.getRow() + 1, tile.getColumn()) != null)
-			{
-				return this.getTile(tile.getRow() + 1, tile.getColumn());
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Gets the Tile to the East of the passed in Tile.
-	 * @param tile The origin Tile.
-	 * @return The Tile to the East of the origin Tile. Null if no Tile is found.
-	 */
-	public Tile getEastNeighbor(Tile tile)
-	{
-		if(this.isWithinBounds(tile.getRow(), tile.getColumn() + 1))
-		{
-			if(this.getTile(tile.getRow(), tile.getColumn() + 1) != null)
-			{
-				return this.getTile(tile.getRow(), tile.getColumn() + 1);
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Gets the Tile to the West of the passed in Tile.
-	 * @param tile The origin Tile.
-	 * @return The Tile to the West of the origin Tile. Null if no Tile is found.
-	 */
-	public Tile getWestNeighbor(Tile tile)
-	{
-		if(this.isWithinBounds(tile.getRow(), tile.getColumn() - 1))
-		{
-			if(this.getTile(tile.getRow(), tile.getColumn() - 1) != null)
-			{
-				return this.getTile(tile.getRow(), tile.getColumn() - 1);
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Returns a random Tile which is a neighbor to the passed in Tile.
-	 * @param random A Random generator.
-	 * @param tile The Tile to get a neighbor of.
-	 * @return A random neighbor Tile.
-	 */
-	public Tile getRandomNeighbor(Random random, Tile tile)
-	{
-		ArrayList<Tile> neighbors = new ArrayList<Tile>();
-		
-		neighbors.add(this.getNorthNeighbor(tile));
-		neighbors.add(this.getEastNeighbor(tile));
-		neighbors.add(this.getSouthNeighbor(tile));
-		neighbors.add(this.getWestNeighbor(tile));
-
-		neighbors.removeAll(Collections.singleton(null));
-		
-		return neighbors.get(random.nextInt(neighbors.size()));
-	}
-	
-	/**
-	 * Gets the Tiles to the North, East, South, and West of the passed in Tile.
-	 * @param tile The Tile to get the neighbors of.
-	 * @return An ArrayList<Tile> containing all the found neighbors.
-	 */
-	public ArrayList<Tile> getNeighbors(Tile tile)
-	{
-		ArrayList<Tile> neighbors = new ArrayList<Tile>();
-		
-		neighbors.add(this.getNorthNeighbor(tile));
-		neighbors.add(this.getEastNeighbor(tile));
-		neighbors.add(this.getSouthNeighbor(tile));
-		neighbors.add(this.getWestNeighbor(tile));
-
-		neighbors.removeAll(Collections.singleton(null));
-		
-		return neighbors;
 	}
 	
 	public ArrayList<Tile> getUnvisitedNeighbors(Tile origin)
@@ -237,20 +114,10 @@ public class Maze
 		return null;
 	}
 	
-	private void populate()
-	{
-		for(int i = 0; i < this.rows; i++)
-		{
-			for(int j = 0; j < this.columns; j++)
-			{
-				this.maze[i][j] = new Tile(this, i, j, 4);
-			}
-		}
-	}
 	
 	public Tile[][] getMaze()
 	{
-		return maze;
+		return this.maze;
 	}
 
 	public void setMaze(Tile[][] maze)
@@ -265,12 +132,17 @@ public class Maze
 
 	public int getRows()
 	{
-		return rows;
+		return this.rows;
 	}
 
 	public int getColumns()
 	{
-		return columns;
+		return this.columns;
+	}
+	
+	public int getSides()
+	{
+		return this.sides;
 	}
 	
 	public Tile getEntrance()

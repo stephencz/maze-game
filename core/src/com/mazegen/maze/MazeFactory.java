@@ -6,35 +6,32 @@ import java.util.Stack;
 
 public class MazeFactory
 {
-
-	public static Maze generateDepthFirstSearchMaze(int width, int height)
+	
+	public SquareMaze generateSquareRecursiveBacktrackMaze(int width, int height)
 	{
-		Maze maze = new Maze(width, height);
-		
-		return maze;
+		SquareMaze maze = new SquareMaze(width, height);
+		return recursiveBacktrackAlgorithm(maze);
 	}
 	
-	public static Maze generateRandomizedPrimMaze(int width, int height)
+	public SquareMaze generateSquareAldousBroderMaze(int width, int height)
 	{
-		//Create maze and wall list
-		Maze maze = new Maze(width, height);
-		
-		
-		return maze;
+		SquareMaze maze = new SquareMaze(width, height);
+		return aldousBroderAlgorithm(maze);
 	}
 	
-	public static Maze generateRecursiveBacktrackMaze(int width, int height)
+	private <T extends Maze> T recursiveBacktrackAlgorithm(T maze)
 	{
-		//Create Maze with all walls filled in
-		Maze maze = new Maze(width, height);
-		Stack<Tile> stack = new Stack<Tile>();
+		//Create random generator.
 		Random random = new Random();
 		
+		//Create a Stack of Tile objects.
+		Stack<Tile> stack = new Stack<Tile>();
+
 		//Get Random Tile and set to Visited
 		int row = random.nextInt(maze.getRows());
 		int col = random.nextInt(maze.getColumns());
 		
-		Tile active = (Tile) maze.getTile(row, col);
+		Tile active = maze.getTile(row, col);
 		active.setVisited(true);
 				
 		//Calculate the number of remaining unvisited Tiles
@@ -72,10 +69,8 @@ public class MazeFactory
 		return maze;
 	}
 	
-	public static Maze generateAldousBroderMaze(int width, int height)
+	private <T extends Maze> T aldousBroderAlgorithm(T maze)
 	{
-		//Create Maze with all walls filled in
-		Maze maze = new Maze(width, height);
 		Random random = new Random();
 		
 		//Get Random Tile and set to Visited

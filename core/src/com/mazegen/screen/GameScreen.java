@@ -9,9 +9,11 @@ import com.mazegen.entity.EntityManager;
 import com.mazegen.entity.EntityPlayer;
 import com.mazegen.main.Driver;
 import com.mazegen.maze.Maze;
-import com.mazegen.maze.MazeDrawer;
 import com.mazegen.maze.MazeFactory;
 import com.mazegen.maze.MazeType;
+import com.mazegen.maze.SquareMaze;
+import com.mazegen.maze.draw.MazeDrawer;
+import com.mazegen.maze.draw.SquareMazeDrawer;
 import com.mazegen.util.RenderUtil;
 
 public class GameScreen implements Screen
@@ -23,7 +25,9 @@ public class GameScreen implements Screen
 	
 	private int height;
 	
-	private Maze maze;
+	private MazeFactory factory;
+	
+	private SquareMaze maze;
 	
 	private MazeDrawer drawer;
 	
@@ -36,6 +40,8 @@ public class GameScreen implements Screen
 		this.type = type;
 		this.width = width;
 		this.height = height;
+		
+		this.factory = new MazeFactory();
 		
 		this.maze = null;
 		this.drawer = null;
@@ -56,7 +62,7 @@ public class GameScreen implements Screen
 		{
 			drawer.drawMaze();
 			manager.render(delta);
-			
+						
 			this.handleCameraZoom();
 			
 			if(Gdx.input.isKeyJustPressed(Keys.R))
@@ -69,14 +75,12 @@ public class GameScreen implements Screen
 				if(player.getColumn() == maze.getExit().getColumn())
 				{
 					this.handleMazeGeneration();
-					this.drawer = new MazeDrawer(this.maze, 8, 2, 200);
 				}
 			}
 		}
 		else
 		{
 			this.handleMazeGeneration();
-			this.drawer = new MazeDrawer(this.maze, 8, 2, 200);
 		}
 	}
 
@@ -125,13 +129,7 @@ public class GameScreen implements Screen
 			manager.getEntities().remove(player);
 		}
 		
-		//Generate the correct type of maze.
-		switch(this.type)
-		{
-		case ALDOUS_BRODER: maze = MazeFactory.generateAldousBroderMaze(width, height); break;
-		case RECURSIVE_BACKTRACK: maze = MazeFactory.generateRecursiveBacktrackMaze(width, height); break;
-		default: maze = MazeFactory.generateRecursiveBacktrackMaze(width, height); break;
-		}
+		maze = factory.generateSquareRecursiveBacktrackMaze(width, height);
 		
 		//Create the Maze Drawer
 		drawer = new MazeDrawer(this.maze, 8, 2, 200);
