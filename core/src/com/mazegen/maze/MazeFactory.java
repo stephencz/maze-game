@@ -6,10 +6,15 @@ import java.util.Stack;
 
 public class MazeFactory
 {
-	
 	public SquareMaze generateSquareRecursiveBacktrackMaze(int width, int height)
 	{
 		SquareMaze maze = new SquareMaze(width, height);
+		return recursiveBacktrackAlgorithm(maze);
+	}
+	
+	public HexagonMaze generateHexagonRecursiveBacktrackMaze(int width, int height)
+	{
+		HexagonMaze maze = new HexagonMaze(width, height);
 		return recursiveBacktrackAlgorithm(maze);
 	}
 	
@@ -66,6 +71,12 @@ public class MazeFactory
 	public SquareMaze generateSquareAldousBroderMaze(int width, int height)
 	{
 		SquareMaze maze = new SquareMaze(width, height);
+		return aldousBroderAlgorithm(maze);
+	}
+	
+	public HexagonMaze generateHexagonAldousBroderMaze(int width, int height)
+	{
+		HexagonMaze maze = new HexagonMaze(width, height);
 		return aldousBroderAlgorithm(maze);
 	}
 	

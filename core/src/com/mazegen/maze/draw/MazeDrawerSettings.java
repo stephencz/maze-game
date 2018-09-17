@@ -28,7 +28,7 @@ public class MazeDrawerSettings
 	
 	public MazeDrawerSettings()
 	{
-		this.tileSize = 8;
+		this.tileSize = 16;
 		this.wallSize = 2;
 		this.sightRange = 200;
 		

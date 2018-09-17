@@ -2,7 +2,7 @@ package com.mazegen.maze;
 
 public enum TileType
 {
-	TRIANGULAR,
+	TRIANGLE,
 	SQUARE,
-	HEXAGONAL;
+	HEXAGON;
 }

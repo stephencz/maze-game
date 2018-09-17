@@ -1,11 +1,12 @@
 package com.mazegen.maze.draw;
 
 import com.mazegen.main.Driver;
+import com.mazegen.maze.Maze;
 import com.mazegen.maze.SquareMaze;
 
 public class SquareMazeDrawer extends MazeDrawer
 {
-	public SquareMazeDrawer(SquareMaze maze)
+	public SquareMazeDrawer(Maze maze)
 	{
 		super(maze);
 	}

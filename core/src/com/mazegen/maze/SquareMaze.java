@@ -10,24 +10,7 @@ public class SquareMaze extends Maze
 	{
 		super(rows, columns, 4);
 	}
-
-	protected void populate()
-	{
-		for(int i = 0; i < this.rows; i++)
-		{
-			for(int j = 0; j < this.columns; j++)
-			{
-				this.maze[i][j] = new Tile(this, i, j, 4);
-			}
-		}
-	}
 	
-	/**
-	 * Carves a path between two Tiles. The Tiles must be neighbors for
-	 * the method to work correctly.
-	 * @param origin The origin Tile.
-	 * @param target The target Tile.
-	 */
 	public void carvePath(Tile origin, Tile target)
 	{			
 		if(origin.getColumn() < target.getColumn())
@@ -69,32 +52,6 @@ public class SquareMaze extends Maze
 		exit.setExit(true);
 	}
 	
-	/**
-	 * Checks if the passed in row and column position is within the bounds
-	 * of the maze.
-	 * @param maze The maze to check the bounds of.
-	 * @param row The row position of the Tile.
-	 * @param column The column position of the Tile.
-	 * @return True if it is in bounds. Otherwise false.
-	 */
-	public boolean isWithinBounds(int row, int column)
-	{
-		if((row >= 0 && column >= 0) && (row < this.getRows() && column < this.getColumns()))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	/**
-	 * Returns a random Tile which is a neighbor to the passed in Tile.
-	 * @param random A Random generator.
-	 * @param tile The Tile to get a neighbor of.
-	 * @return A random neighbor Tile.
-	 */
 	public Tile getRandomNeighbor(Random random, Tile tile)
 	{
 		ArrayList<Tile> neighbors = new ArrayList<Tile>();
@@ -109,11 +66,6 @@ public class SquareMaze extends Maze
 		return neighbors.get(random.nextInt(neighbors.size()));
 	}
 	
-	/**
-	 * Gets the Tiles to the North, East, South, and West of the passed in Tile.
-	 * @param tile The Tile to get the neighbors of.
-	 * @return An ArrayList<Tile> containing all the found neighbors.
-	 */
 	public ArrayList<Tile> getNeighbors(Tile tile)
 	{
 		ArrayList<Tile> neighbors = new ArrayList<Tile>();

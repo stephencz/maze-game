@@ -32,7 +32,16 @@ public abstract class Maze
 		this.populate();
 	}
 
-	abstract protected void populate();
+	private void populate()
+	{
+		for(int i = 0; i < this.rows; i++)
+		{
+			for(int j = 0; j < this.columns; j++)
+			{
+				this.maze[i][j] = new Tile(this, i, j, this.sides);
+			}
+		}
+	}
 	
 	/**
 	 * Carves a path between two Tiles. The Tiles must be neighbors for
