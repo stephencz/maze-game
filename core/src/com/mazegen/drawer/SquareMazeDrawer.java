@@ -32,16 +32,7 @@ public class SquareMazeDrawer extends MazeDrawer
 		float x = (i * this.tileSize);
 		float y = (j * this.tileSize);
 		
-		/*
-		if(x >= -10 && x <= Driver.viewport.getScreenWidth() + 10)
-		{
-			if(y >= -10 && y <= Driver.viewport.getScreenHeight() + 10)
-			{
-				return true;
-			}
-		}*/
-		
-		if(Driver.camera.frustum.pointInFrustum(x, y, 0f))
+		if(Driver.camera.frustum.boundsInFrustum(x, y, 0f, this.tileSize, this.tileSize, 0f))
 		{
 			return true;
 		}

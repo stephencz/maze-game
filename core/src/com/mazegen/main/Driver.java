@@ -29,7 +29,7 @@ public class Driver extends Game
 		camera.setToOrtho(true, GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT);
 		viewport = new FillViewport(GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT, camera);
 		
-		this.setScreen(new GameScreen(TileType.SQUARE, GenerationType.RECURSIVE_BACKTRACK, 1000, 1000));
+		this.setScreen(new GameScreen(TileType.SQUARE, GenerationType.RECURSIVE_BACKTRACK, 500, 500));
 	}
 
 	@Override
