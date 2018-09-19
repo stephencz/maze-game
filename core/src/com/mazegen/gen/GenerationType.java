@@ -1,4 +1,4 @@
-package com.mazegen.maze;
+package com.mazegen.gen;
 
 public enum GenerationType
 {

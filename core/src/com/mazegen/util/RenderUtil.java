@@ -2,11 +2,11 @@ package com.mazegen.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector3;
 import com.mazegen.main.Driver;
 
 public class RenderUtil
-{
-	
+{	
 	public static void clearScreen(float r, float g, float b, float a)
 	{
 		Gdx.gl.glClearColor(r, g, b, a);
@@ -15,8 +15,7 @@ public class RenderUtil
 	
 	public static void updateCamera()
 	{
+		Driver.camera.update(true);
 		Driver.shape.setProjectionMatrix(Driver.camera.combined);
-		Driver.camera.update();
 	}
-	
 }

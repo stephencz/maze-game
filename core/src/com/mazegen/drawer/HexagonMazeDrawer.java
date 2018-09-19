@@ -1,4 +1,4 @@
-package com.mazegen.maze.draw;
+package com.mazegen.drawer;
 
 import com.mazegen.maze.Maze;
 
@@ -15,10 +15,11 @@ public class HexagonMazeDrawer extends MazeDrawer
 	{
 		
 	}
-	
-	private void drawNorthWall(int i, int j)
+
+	@Override
+	protected boolean isOnScreen(int i, int j)
 	{
-		
+		return false;
 	}
 
 }
