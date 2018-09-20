@@ -1,29 +1,18 @@
 package com.mazegen.drawer;
 
-import com.badlogic.gdx.math.Plane.PlaneSide;
 import com.mazegen.main.Driver;
 import com.mazegen.maze.Maze;
 
 public class SquareMazeDrawer extends MazeDrawer
-{
-	protected int wallSize;
-	
+{	
 	protected int tileSize;
 	
 	public SquareMazeDrawer(Maze maze)
 	{
-		super(maze);
+		super(maze, 4);
 		
-		this.wallSize = 2;
-		this.tileSize = 8;
-	}
-	
-	@Override
-	protected void draw(int i, int j)
-	{
-		this.drawTiles(i, j);
-		this.drawCorners(i, j);
-		this.drawWalls(i, j);
+		this.tileSize = 32;
+
 	}
 	
 	@Override
@@ -38,6 +27,14 @@ public class SquareMazeDrawer extends MazeDrawer
 		}
 		
 		return false;
+	}
+	
+	@Override
+	protected void draw(int i, int j)
+	{
+		this.drawTiles(i, j);
+		this.drawCorners(i, j);
+		this.drawWalls(i, j);
 	}
 
 	private void drawTiles(int i, int j)

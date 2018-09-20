@@ -42,7 +42,7 @@ public class GameScreen implements Screen
 		
 		this.createMazeAndDrawer();
 				
-		Driver.camera.zoom = 1.5f;
+		Driver.camera.zoom = 2.5f;
 	}
 	
 	private void createMazeAndDrawer()
@@ -96,15 +96,15 @@ public class GameScreen implements Screen
 	{
 		RenderUtil.clearScreen(1f, 1f, 1f, 1f);
 		RenderUtil.updateCamera();
-		
-		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
-		
+				
 		if((maze != null && drawer != null))
 		{
 			drawer.render();
 						
 			this.handleCameraZoom();
 			this.handleCameraMovement();
+			
+			System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 			
 			if(Gdx.input.isKeyJustPressed(Keys.R))
 			{

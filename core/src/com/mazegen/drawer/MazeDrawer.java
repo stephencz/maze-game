@@ -13,6 +13,8 @@ public abstract class MazeDrawer
 	
 	protected int mazeHeight;
 	
+	protected int wallSize;
+		
 	protected Color bgColor;
 	
 	protected Color tileColor;
@@ -27,12 +29,14 @@ public abstract class MazeDrawer
 	
 	protected Color playerColor;
 	
-	public MazeDrawer(Maze maze)
+	public MazeDrawer(Maze maze, int wallSize)
 	{
 		this.maze = maze;
 		
 		this.mazeWidth = maze.getRows();
 		this.mazeHeight = maze.getColumns();
+		
+		this.wallSize = wallSize;
 		
 		this.bgColor = new Color(1f, 1f, 1f, 1.0f);
 		this.tileColor = new Color(1f, 1f, 1f, 1.0f);
@@ -65,9 +69,9 @@ public abstract class MazeDrawer
 		}
 	}
 	
-	abstract protected void draw(int i, int j);
-	
 	abstract protected boolean isOnScreen(int i, int j);
+	
+	abstract protected void draw(int i, int j);	
 	
 	public Maze getMaze()
 	{
@@ -99,6 +103,16 @@ public abstract class MazeDrawer
 	public void setMazeHeight(int mazeHeight)
 	{
 		this.mazeHeight = mazeHeight;
+	}
+
+	public int getWallSize()
+	{
+		return wallSize;
+	}
+
+	public void setWallSize(int wallSize)
+	{
+		this.wallSize = wallSize;
 	}
 
 	public Color getBgColor()
