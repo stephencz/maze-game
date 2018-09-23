@@ -79,7 +79,7 @@ public class GameScreen implements Screen
 				break;
 				
 			case RECURSIVE_BACKTRACK: 
-				this.maze = new HexagonMaze(width, height); 
+				this.maze = factory.generateHexagonRecursiveBacktrackMaze(width, height);
 				break;
 				
 			default: 
@@ -103,9 +103,7 @@ public class GameScreen implements Screen
 						
 			this.handleCameraZoom();
 			this.handleCameraMovement();
-			
-			System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
-			
+						
 			if(Gdx.input.isKeyJustPressed(Keys.R))
 			{
 				this.createMazeAndDrawer();

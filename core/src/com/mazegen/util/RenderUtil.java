@@ -16,6 +16,7 @@ public class RenderUtil
 	public static void updateCamera()
 	{
 		Driver.camera.update(true);
+		Driver.batch.setProjectionMatrix(Driver.camera.combined);
 		Driver.shape.setProjectionMatrix(Driver.camera.combined);
 	}
 }

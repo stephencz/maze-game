@@ -32,9 +32,12 @@ public class SquareMazeDrawer extends MazeDrawer
 	@Override
 	protected void draw(int i, int j)
 	{
-		this.drawTiles(i, j);
-		this.drawCorners(i, j);
-		this.drawWalls(i, j);
+		if(this.maze.getMaze()[i][j] != null)
+		{
+			this.drawTiles(i, j);
+			this.drawCorners(i, j);
+			this.drawWalls(i, j);
+		}
 	}
 
 	private void drawTiles(int i, int j)

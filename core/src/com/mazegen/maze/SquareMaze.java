@@ -52,20 +52,6 @@ public class SquareMaze extends Maze
 		exit.setExit(true);
 	}
 	
-	public Tile getRandomNeighbor(Random random, Tile tile)
-	{
-		ArrayList<Tile> neighbors = new ArrayList<Tile>();
-		
-		neighbors.add(this.getNorthNeighbor(tile));
-		neighbors.add(this.getEastNeighbor(tile));
-		neighbors.add(this.getSouthNeighbor(tile));
-		neighbors.add(this.getWestNeighbor(tile));
-
-		neighbors.removeAll(Collections.singleton(null));
-		
-		return neighbors.get(random.nextInt(neighbors.size()));
-	}
-	
 	public ArrayList<Tile> getNeighbors(Tile tile)
 	{
 		ArrayList<Tile> neighbors = new ArrayList<Tile>();

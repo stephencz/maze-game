@@ -2,6 +2,7 @@ package com.mazegen.main;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -14,6 +15,8 @@ public class Driver extends Game
 	public static SpriteBatch batch;
 	
 	public static ShapeRenderer shape;
+
+	public static BitmapFont font;
 	
 	public static OrthographicCamera camera;
 	
@@ -24,12 +27,13 @@ public class Driver extends Game
 	{
 		batch = new SpriteBatch();
 		shape = new ShapeRenderer();
+		font = new BitmapFont(true);
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT);
 		viewport = new FillViewport(GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT, camera);
 		
-		this.setScreen(new GameScreen(TileType.HEXAGON, GenerationType.RECURSIVE_BACKTRACK, 300, 100));
+		this.setScreen(new GameScreen(TileType.HEXAGON, GenerationType.RECURSIVE_BACKTRACK, 6, 6));
 	}
 
 	@Override
@@ -48,6 +52,8 @@ public class Driver extends Game
 	@Override
 	public void dispose () 
 	{
+		batch.dispose();
 		shape.dispose();
+		font.dispose();
 	}
 }

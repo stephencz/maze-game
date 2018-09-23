@@ -58,14 +58,6 @@ public abstract class Maze
 	abstract public void setEntranceAndExit(Random random);
 	
 	/**
-	 * Returns a random Tile which is a neighbor to the passed in Tile.
-	 * @param random A Random generator.
-	 * @param tile The Tile to get a neighbor of.
-	 * @return A random neighbor Tile.
-	 */
-	abstract public Tile getRandomNeighbor(Random random, Tile tile);
-	
-	/**
 	 * Gets the Tiles to the North, East, South, and West of the passed in Tile.
 	 * @param tile The Tile to get the neighbors of.
 	 * @return An ArrayList<Tile> containing all the found neighbors.
@@ -90,6 +82,15 @@ public abstract class Maze
 		{
 			return false;
 		}
+	}
+	
+	public Tile getRandomNeighbor(Random random, Tile tile)
+	{
+		ArrayList<Tile> neighbors = this.getNeighbors(tile);
+
+		neighbors.removeAll(Collections.singleton(null));
+		
+		return neighbors.get(random.nextInt(neighbors.size()));
 	}
 	
 	public ArrayList<Tile> getUnvisitedNeighbors(Tile origin)
@@ -123,6 +124,29 @@ public abstract class Maze
 		return null;
 	}
 	
+	public boolean isTileEven(Tile tile)
+	{
+		if((tile.getRow() + 1) % 2 == 0)
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}		
+	}
+	
+	public boolean isTileOdd(Tile tile)
+	{
+		if((tile.getRow() + 1) % 2 == 0)
+		{
+			return false;
+		}
+		else 
+		{
+			return true;
+		}	
+	}
 	
 	public Tile[][] getMaze()
 	{

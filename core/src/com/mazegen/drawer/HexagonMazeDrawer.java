@@ -1,8 +1,7 @@
 package com.mazegen.drawer;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.mazegen.main.Driver;
 import com.mazegen.maze.Maze;
 
@@ -28,7 +27,7 @@ public class HexagonMazeDrawer extends MazeDrawer
 		this.tbLeft = this.tileWidth / LENGTH_FACTOR;
 		this.tbRight = (this.tileWidth / LENGTH_FACTOR) + this.tbLeft * 2;
 		
-		this.tileColor = new Color(0f, 0f, 0f, 1f);
+		this.tileColor = new Color(1f, 0f, 0f, 1f);
 	}
 
 	@Override
@@ -40,10 +39,16 @@ public class HexagonMazeDrawer extends MazeDrawer
 	@Override
 	protected void draw(int i, int j)
 	{
-		this.drawTiles(i, j);
-		this.drawWalls(i, j);
-		this.drawEntrance(i, j);
-		this.drawExit(i, j);
+		if(this.maze.getMaze()[i][j] != null)
+		{
+			this.drawTiles(i, j);
+			this.drawWalls(i, j);
+			this.drawEntrance(i, j);
+			this.drawExit(i, j);
+			
+			this.debugDrawTileIndex(i, j);
+
+		}
 	}
 	
 	private void drawTiles(int i, int j)
@@ -58,6 +63,32 @@ public class HexagonMazeDrawer extends MazeDrawer
 		}
 		
 		this.drawTile(i, j);
+	}
+	
+	private void debugDrawTileIndex(int i, int j)
+	{
+		Driver.shape.end();
+		Driver.batch.begin();
+		
+		Driver.font.getData().setScale(0.5f);
+		Driver.font.setColor(wallColor);
+		if((i + 1) % 2 == 0)
+		{
+			Driver.font.draw(Driver.batch, 
+					i + " " + j, 
+					i * this.tileWidth + 5, 
+					j * this.tileHeight + 30);
+		}
+		else
+		{
+			Driver.font.draw(Driver.batch, 
+					i + " " + j, 
+					i * this.tileWidth + 5, 
+					j * this.tileHeight + 15);
+		}
+		
+		Driver.batch.end();
+		Driver.shape.begin(ShapeType.Filled);		
 	}
 	
 	private void drawTile(int i, int j)
@@ -77,6 +108,7 @@ public class HexagonMazeDrawer extends MazeDrawer
 	
 	private void drawWalls(int i, int j)
 	{	
+		Driver.shape.setColor(this.wallColor);
 		if((i + 1) % 2 == 0)
 		{
 			this.drawEvenWalls(i, j);
@@ -205,8 +237,6 @@ public class HexagonMazeDrawer extends MazeDrawer
 				(j * this.tileHeight) + (this.tileHeight) + this.wallSize / 2, 
 				this.wallSize);
 	}
-	
-	//ODD WALLS
 	
 	private void drawOddNorthWall(int i, int j)
 	{
