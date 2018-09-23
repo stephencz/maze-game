@@ -18,7 +18,7 @@ public class HexagonMaze extends Maze
 		ArrayList<Tile> neighbors = this.getNeighbors(origin);
 		for(int i = 0; i < neighbors.size(); i++)
 		{
-			if(neighbors.get(i).equals(target))
+			if(neighbors.get(i) != null && neighbors.get(i).equals(target))
 			{				
 				origin.setWall(i, false);
 				switch(i)
@@ -31,6 +31,9 @@ public class HexagonMaze extends Maze
 					case 5: target.setWall(2, false); break;
 					default: break;
 				}
+				
+				System.out.println("Carved wall " + i + " between " + origin.getRow() + " " + origin.getColumn()
+				+ " and " + target.getRow() + " " + target.getColumn());
 			}
 		}
 		
@@ -54,7 +57,7 @@ public class HexagonMaze extends Maze
 		neighbors.add(this.getSouthWestNeighbor(tile));
 		neighbors.add(this.getNorthWestNeighbor(tile));
 				
-		neighbors.removeAll(Collections.singleton(null));
+		//neighbors.removeAll(Collections.singleton(null));
 				
 		return neighbors;
 	}

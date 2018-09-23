@@ -45,9 +45,6 @@ public class HexagonMazeDrawer extends MazeDrawer
 			this.drawWalls(i, j);
 			this.drawEntrance(i, j);
 			this.drawExit(i, j);
-			
-			this.debugDrawTileIndex(i, j);
-
 		}
 	}
 	
@@ -63,32 +60,6 @@ public class HexagonMazeDrawer extends MazeDrawer
 		}
 		
 		this.drawTile(i, j);
-	}
-	
-	private void debugDrawTileIndex(int i, int j)
-	{
-		Driver.shape.end();
-		Driver.batch.begin();
-		
-		Driver.font.getData().setScale(0.5f);
-		Driver.font.setColor(wallColor);
-		if((i + 1) % 2 == 0)
-		{
-			Driver.font.draw(Driver.batch, 
-					i + " " + j, 
-					i * this.tileWidth + 5, 
-					j * this.tileHeight + 30);
-		}
-		else
-		{
-			Driver.font.draw(Driver.batch, 
-					i + " " + j, 
-					i * this.tileWidth + 5, 
-					j * this.tileHeight + 15);
-		}
-		
-		Driver.batch.end();
-		Driver.shape.begin(ShapeType.Filled);		
 	}
 	
 	private void drawTile(int i, int j)

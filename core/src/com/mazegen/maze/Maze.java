@@ -99,7 +99,7 @@ public abstract class Maze
 		
 		for(Tile neighbor : this.getNeighbors(origin))
 		{
-			if(!neighbor.isVisited())
+			if(neighbor != null && !neighbor.isVisited())
 			{
 				unvisited.add(neighbor);
 			}
