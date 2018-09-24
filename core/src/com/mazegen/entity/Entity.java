@@ -1,7 +1,11 @@
 package com.mazegen.entity;
 
+import com.mazegen.maze.Maze;
+
 public abstract class Entity
 {
+	protected final Maze maze;
+	
 	protected float x;
 	
 	protected float y;
@@ -10,8 +14,10 @@ public abstract class Entity
 	
 	protected int height;
 	
-	public Entity(float x, float y, int width, int height)
+	public Entity(Maze maze, float x, float y, int width, int height)
 	{
+		this.maze = maze;
+		
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -21,6 +27,11 @@ public abstract class Entity
 	abstract public void render(float delta);
 	
 	abstract public void dispose();
+	
+	public Maze getMaze()
+	{
+		return maze;
+	}
 
 	public float getX()
 	{

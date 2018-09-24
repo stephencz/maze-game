@@ -3,14 +3,15 @@ package com.mazegen.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.mazegen.drawer.HexagonMazeDrawer;
+import com.mazegen.drawer.MazeDrawerHexagon;
 import com.mazegen.drawer.MazeDrawer;
-import com.mazegen.drawer.SquareMazeDrawer;
+import com.mazegen.drawer.MazeDrawerSquare;
 import com.mazegen.gen.GenerationType;
 import com.mazegen.gen.MazeFactory;
 import com.mazegen.main.Driver;
-import com.mazegen.maze.HexagonMaze;
+import com.mazegen.maze.MazeHexagon;
 import com.mazegen.maze.Maze;
+import com.mazegen.maze.MazeSquare;
 import com.mazegen.maze.TileType;
 import com.mazegen.util.RenderUtil;
 
@@ -44,52 +45,6 @@ public class GameScreen implements Screen
 				
 		Driver.camera.zoom = 2.5f;
 	}
-	
-	private void createMazeAndDrawer()
-	{
-		if(tileType == TileType.TRIANGLE)
-		{
-			
-		}
-		else if(tileType == TileType.SQUARE)
-		{
-			switch(genType)
-			{
-			case ALDOUS_BRODER: 
-				this.maze = factory.generateSquareAldousBroderMaze(this.width, this.height); 
-				break;
-				
-			case RECURSIVE_BACKTRACK: 
-				this.maze = factory.generateSquareRecursiveBacktrackMaze(this.width, this.height); 
-				break;
-				
-			default: 
-				this.maze = factory.generateSquareRecursiveBacktrackMaze(this.width, this.height); 
-				break;
-			}
-			
-			this.drawer = new SquareMazeDrawer(this.maze);
-		}
-		else
-		{
-			switch(genType)
-			{
-			case ALDOUS_BRODER: 
-				this.maze = factory.generateHexagonAldousBroderMaze(this.width, this.height); 
-				break;
-				
-			case RECURSIVE_BACKTRACK: 
-				this.maze = factory.generateHexagonRecursiveBacktrackMaze(width, height);
-				break;
-				
-			default: 
-				this.maze = factory.generateHexagonRecursiveBacktrackMaze(this.width, this.height);
-				break;
-			}
-			
-			this.drawer = new HexagonMazeDrawer(this.maze);
-		}
-	}
 
 	@Override
 	public void render(float delta)
@@ -108,6 +63,20 @@ public class GameScreen implements Screen
 			{
 				this.createMazeAndDrawer();
 			}
+		}
+	}
+	
+	private void createMazeAndDrawer()
+	{
+		this.maze = factory.getMaze(tileType, genType, width, height);
+		
+		if(maze instanceof MazeSquare)
+		{
+			this.drawer = new MazeDrawerSquare(this.maze);
+		}
+		else
+		{
+			this.drawer = new MazeDrawerHexagon(this.maze);
 		}
 	}
 	

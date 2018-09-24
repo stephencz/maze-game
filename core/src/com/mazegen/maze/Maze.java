@@ -4,25 +4,40 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * 
+ */
 public abstract class Maze
 {		
+	/**The type of Tile that composes the maze.*/
+	protected final TileType type;
+	
+	/**The number of rows in the Maze.*/
 	protected final int rows;
 	
+	/**The number of columns in the Maze.*/
 	protected final int columns;
 	
-	protected final int sides;
-	
+	/**A 2D array of Tile objects which represents the structure of the Maze.*/
 	protected Tile[][] maze;
 	
+	/**The Tile containing the entrance to the Maze.*/
 	protected Tile entrance;
 	
+	/**The Tile containing the exit from the Maze.*/
 	protected Tile exit;
 	
-	public Maze(int rows, int columns, int sides)
+	/**
+	 * Creates a new Maze object.
+	 * @param rows The number of row (width) of the Maze.
+	 * @param columns The number of columns (height) of the Maze.
+	 * @param sides The
+	 */
+	public Maze(TileType type, int rows, int columns)
 	{
+		this.type = type;
 		this.rows = rows;
 		this.columns = columns;
-		this.sides = sides;
 		
 		this.maze = new Tile[rows][columns];
 			
@@ -38,7 +53,7 @@ public abstract class Maze
 		{
 			for(int j = 0; j < this.columns; j++)
 			{
-				this.maze[i][j] = new Tile(this, i, j, this.sides);
+				this.maze[i][j] = new Tile(this, i, j, type.getTypeSideNumber());
 			}
 		}
 	}
@@ -148,6 +163,21 @@ public abstract class Maze
 		}	
 	}
 	
+	public TileType getType()
+	{
+		return type;
+	}
+
+	public int getRows()
+	{
+		return this.rows;
+	}
+
+	public int getColumns()
+	{
+		return this.columns;
+	}
+	
 	public Tile[][] getMaze()
 	{
 		return this.maze;
@@ -161,21 +191,6 @@ public abstract class Maze
 	public Tile getTile(int row, int col)
 	{
 		return this.maze[row][col];
-	}
-
-	public int getRows()
-	{
-		return this.rows;
-	}
-
-	public int getColumns()
-	{
-		return this.columns;
-	}
-	
-	public int getSides()
-	{
-		return this.sides;
 	}
 	
 	public Tile getEntrance()

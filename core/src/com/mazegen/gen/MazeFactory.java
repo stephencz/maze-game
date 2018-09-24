@@ -4,25 +4,97 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
-import com.mazegen.maze.HexagonMaze;
+import com.mazegen.drawer.MazeDrawerHexagon;
+import com.mazegen.drawer.MazeDrawerSquare;
+import com.mazegen.maze.MazeHexagon;
 import com.mazegen.maze.Maze;
-import com.mazegen.maze.SquareMaze;
+import com.mazegen.maze.MazeSquare;
 import com.mazegen.maze.Tile;
+import com.mazegen.maze.TileType;
 
 public class MazeFactory
 {
-	public SquareMaze generateSquareRecursiveBacktrackMaze(int width, int height)
+	/**
+	 * Get's a maze based on the passed in TileType and GenerationType.
+	 * @param tile The type of tile that the maze should consist of.
+	 * @param gen The method of generation that should be used to create the maze.
+	 * @param width The width, in tiles, of the maze.
+	 * @param height The height, in tiles, of the maze.
+	 * @return A fully generated mazed object.
+	 */
+	public Maze getMaze(TileType tile, GenerationType gen, int width, int height)
 	{
-		SquareMaze maze = new SquareMaze(width, height);
+		Maze maze = null;
+		
+		if(tile == TileType.SQUARE)
+		{
+			switch(gen)
+			{
+			case ALDOUS_BRODER: 
+				maze = getSquareABMaze(width, height); 
+				break;
+				
+			case RECURSIVE_BACKTRACK: 
+				maze = getSquareRBMaze(width, height); 
+				break;
+				
+			default: 
+				maze = getSquareRBMaze(width, height); 
+				break;
+			}
+			
+		}
+		else
+		{
+			switch(gen)
+			{
+			case ALDOUS_BRODER: 
+				maze = getHexagonABMaze(width, height); 
+				break;
+				
+			case RECURSIVE_BACKTRACK: 
+				maze = getHexagonRBMaze(width, height);
+				break;
+				
+			default: 
+				maze = getHexagonRBMaze(width, height);
+				break;
+			}			
+		}
+		
+		return maze;
+	}
+	
+	/**
+	 * Gets a square maze generated using a recursive backtracking algorithm.
+	 * @param width The width, in tiles, of the maze.
+	 * @param height The height, in tiles, of the maze.
+	 * @return A fully generated square maze.
+	 */
+	public MazeSquare getSquareRBMaze(int width, int height)
+	{
+		MazeSquare maze = new MazeSquare(width, height);
 		return recursiveBacktrackAlgorithm(maze);
 	}
 	
-	public HexagonMaze generateHexagonRecursiveBacktrackMaze(int width, int height)
+	/**
+	 * Gets a hexagon maze generated using a recursive backtracking algorithm.
+	 * @param width The width, in tiles, of the maze.
+	 * @param height The height, in tiles, of the maze.
+	 * @return A fully generated hexagon maze.
+	 */
+	public MazeHexagon getHexagonRBMaze(int width, int height)
 	{
-		HexagonMaze maze = new HexagonMaze(width, height);
+		MazeHexagon maze = new MazeHexagon(width, height);
 		return recursiveBacktrackAlgorithm(maze);
 	}
 	
+	/**
+	 * A generic method which processes the passed in Maze object
+	 * using a recursive backtracking algorithm.
+	 * @param maze The maze to process.
+	 * @return A fully generated maze.
+	 */
 	private <T extends Maze> T recursiveBacktrackAlgorithm(T maze)
 	{
 		//Create random generator.
@@ -73,18 +145,36 @@ public class MazeFactory
 		return maze;
 	}
 	
-	public SquareMaze generateSquareAldousBroderMaze(int width, int height)
+	/**
+	 * Gets a square maze generated using the Aldous-Broder algorithm.
+	 * @param width The width, in tiles, of the maze.
+	 * @param height The height, in tiles, of the maze.
+	 * @return A fully generated square maze.
+	 */
+	public MazeSquare getSquareABMaze(int width, int height)
 	{
-		SquareMaze maze = new SquareMaze(width, height);
+		MazeSquare maze = new MazeSquare(width, height);
 		return aldousBroderAlgorithm(maze);
 	}
 	
-	public HexagonMaze generateHexagonAldousBroderMaze(int width, int height)
+	/**
+	 * Gets a hexagon maze generated using the Aldous-Broder algorithm.
+	 * @param width The width, in tiles, of the maze.
+	 * @param height The height, in tiles, of the maze.
+	 * @return A fully generated hexagon maze.
+	 */
+	public MazeHexagon getHexagonABMaze(int width, int height)
 	{
-		HexagonMaze maze = new HexagonMaze(width, height);
+		MazeHexagon maze = new MazeHexagon(width, height);
 		return aldousBroderAlgorithm(maze);
 	}
 	
+	/**
+	 * A generic method which processes the passed in Maze object
+	 * using the Aldous-Broder algorithm.
+	 * @param maze The maze to process.
+	 * @return A fully generated maze.
+	 */
 	private <T extends Maze> T aldousBroderAlgorithm(T maze)
 	{
 		Random random = new Random();
@@ -123,5 +213,4 @@ public class MazeFactory
 				
 		return maze;
 	}
-	
 }

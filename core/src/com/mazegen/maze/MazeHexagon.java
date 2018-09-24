@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class HexagonMaze extends Maze
+public class MazeHexagon extends Maze
 {
 
-	public HexagonMaze(int rows, int columns)
+	public MazeHexagon(int rows, int columns)
 	{
-		super(rows, columns, 6);
+		super(TileType.HEXAGON, rows, columns);
 	}
 
 	@Override
@@ -31,9 +31,6 @@ public class HexagonMaze extends Maze
 					case 5: target.setWall(2, false); break;
 					default: break;
 				}
-				
-				System.out.println("Carved wall " + i + " between " + origin.getRow() + " " + origin.getColumn()
-				+ " and " + target.getRow() + " " + target.getColumn());
 			}
 		}
 		

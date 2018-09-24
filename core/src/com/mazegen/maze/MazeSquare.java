@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class SquareMaze extends Maze
+public class MazeSquare extends Maze
 {		
-	public SquareMaze(int rows, int columns)
+	public MazeSquare(int rows, int columns)
 	{
-		super(rows, columns, 4);
+		super(TileType.SQUARE, rows, columns);
 	}
 	
 	public void carvePath(Tile origin, Tile target)

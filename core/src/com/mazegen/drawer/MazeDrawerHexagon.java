@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.mazegen.main.Driver;
 import com.mazegen.maze.Maze;
 
-public class HexagonMazeDrawer extends MazeDrawer
+public class MazeDrawerHexagon extends MazeDrawer
 {
 	public static final int LENGTH_FACTOR = 4;
 		
@@ -17,7 +17,7 @@ public class HexagonMazeDrawer extends MazeDrawer
 	
 	private float tbRight;
 			
-	public HexagonMazeDrawer(Maze maze)
+	public MazeDrawerHexagon(Maze maze)
 	{
 		super(maze, 2);
 				

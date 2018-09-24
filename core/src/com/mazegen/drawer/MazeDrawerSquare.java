@@ -3,11 +3,11 @@ package com.mazegen.drawer;
 import com.mazegen.main.Driver;
 import com.mazegen.maze.Maze;
 
-public class SquareMazeDrawer extends MazeDrawer
+public class MazeDrawerSquare extends MazeDrawer
 {	
 	protected int tileSize;
 	
-	public SquareMazeDrawer(Maze maze)
+	public MazeDrawerSquare(Maze maze)
 	{
 		super(maze, 4);
 		
