@@ -1,9 +1,7 @@
-package com.mazegen.drawer;
+package com.mazegen.maze;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.mazegen.main.Driver;
-import com.mazegen.maze.Maze;
 
 public class MazeDrawerHexagon extends MazeDrawer
 {

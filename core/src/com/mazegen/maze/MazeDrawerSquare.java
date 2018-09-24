@@ -1,7 +1,6 @@
-package com.mazegen.drawer;
+package com.mazegen.maze;
 
 import com.mazegen.main.Driver;
-import com.mazegen.maze.Maze;
 
 public class MazeDrawerSquare extends MazeDrawer
 {	

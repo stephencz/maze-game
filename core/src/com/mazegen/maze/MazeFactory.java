@@ -1,16 +1,8 @@
-package com.mazegen.gen;
+package com.mazegen.maze;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
-
-import com.mazegen.drawer.MazeDrawerHexagon;
-import com.mazegen.drawer.MazeDrawerSquare;
-import com.mazegen.maze.MazeHexagon;
-import com.mazegen.maze.Maze;
-import com.mazegen.maze.MazeSquare;
-import com.mazegen.maze.Tile;
-import com.mazegen.maze.TileType;
 
 public class MazeFactory
 {
