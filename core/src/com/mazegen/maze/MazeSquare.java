@@ -11,6 +11,18 @@ public class MazeSquare extends Maze
 		super(TileType.SQUARE, rows, columns);
 	}
 	
+	@Override
+	public void render(float delta)
+	{
+		this.drawer.render();
+	}
+
+	@Override
+	public void dispose()
+	{
+		
+	}
+	
 	public void carvePath(Tile origin, Tile target)
 	{			
 		if(origin.getColumn() < target.getColumn())

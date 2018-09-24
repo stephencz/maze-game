@@ -1,37 +1,26 @@
 package com.mazegen.entity;
 
-import com.mazegen.maze.Maze;
-
 public abstract class Entity
-{
-	protected final Maze maze;
-	
+{	
 	protected float x;
 	
 	protected float y;
 	
-	protected int width;
+	public Entity()
+	{		
+		this.x = 0.0f;
+		this.y = 0.0f;
+	}
 	
-	protected int height;
-	
-	public Entity(Maze maze, float x, float y, int width, int height)
-	{
-		this.maze = maze;
-		
+	public Entity(float x, float y)
+	{		
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
 	}
 	
 	abstract public void render(float delta);
 	
 	abstract public void dispose();
-	
-	public Maze getMaze()
-	{
-		return maze;
-	}
 
 	public float getX()
 	{
@@ -51,25 +40,5 @@ public abstract class Entity
 	public void setY(float y)
 	{
 		this.y = y;
-	}
-
-	public int getWidth()
-	{
-		return width;
-	}
-
-	public void setWidth(int width)
-	{
-		this.width = width;
-	}
-
-	public int getHeight()
-	{
-		return height;
-	}
-
-	public void setHeight(int height)
-	{
-		this.height = height;
 	}
 }

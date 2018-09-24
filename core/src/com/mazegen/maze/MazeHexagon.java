@@ -13,6 +13,18 @@ public class MazeHexagon extends Maze
 	}
 
 	@Override
+	public void render(float delta)
+	{
+		this.drawer.render();
+	}
+
+	@Override
+	public void dispose()
+	{
+		
+	}
+	
+	@Override
 	public void carvePath(Tile origin, Tile target)
 	{
 		ArrayList<Tile> neighbors = this.getNeighbors(origin);
@@ -157,6 +169,5 @@ public class MazeHexagon extends Maze
 		}
 		
 		return null;
-	}
-	
+	}	
 }

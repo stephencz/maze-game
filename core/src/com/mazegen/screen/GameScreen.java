@@ -3,6 +3,7 @@ package com.mazegen.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.mazegen.entity.EntityManager;
 import com.mazegen.main.Driver;
 import com.mazegen.maze.MazeHexagon;
 import com.mazegen.maze.GenerationType;
@@ -17,32 +18,17 @@ import com.mazegen.util.RenderUtil;
 
 public class GameScreen implements Screen
 {
-	private final TileType tileType;
-	
-	private final GenerationType genType;
+	private EntityManager manager;
 	
 	private final MazeFactory factory;
-	
-	private int width;
-	
-	private int height;
-		
-	private  Maze maze;
 
-	private MazeDrawer drawer;
+	private  Maze maze;
 	
-	public GameScreen(TileType tileType, GenerationType genType, int width, int height)
+	public GameScreen()
 	{	
-		this.tileType = tileType;
-		this.genType = genType;
-		
+		this.manager = new EntityManager();
 		this.factory = new MazeFactory();
-		
-		this.width = width;
-		this.height = height;
-		
-		this.createMazeAndDrawer();
-				
+						
 		Driver.camera.zoom = 2.5f;
 	}
 
@@ -52,32 +38,35 @@ public class GameScreen implements Screen
 		RenderUtil.clearScreen(1f, 1f, 1f, 1f);
 		RenderUtil.updateCamera();
 				
-		if((maze != null && drawer != null))
+		if(maze != null)
 		{
-			drawer.render();
 						
+			manager.render(delta);
+			
 			this.handleCameraZoom();
 			this.handleCameraMovement();
 						
 			if(Gdx.input.isKeyJustPressed(Keys.R))
 			{
-				this.createMazeAndDrawer();
+				this.createMaze();
 			}
-		}
-	}
-	
-	private void createMazeAndDrawer()
-	{
-		this.maze = factory.getMaze(tileType, genType, width, height);
-		
-		if(maze instanceof MazeSquare)
-		{
-			this.drawer = new MazeDrawerSquare(this.maze);
 		}
 		else
 		{
-			this.drawer = new MazeDrawerHexagon(this.maze);
+			this.createMaze();
 		}
+	}
+	
+	private void createMaze()
+	{
+		if(this.maze != null)
+		{
+			this.manager.getEntities().remove(this.maze);
+			this.maze = null;
+		}
+		
+		this.maze = factory.getMaze(TileType.SQUARE, GenerationType.RECURSIVE_BACKTRACK, 10, 5);
+		this.manager.addEntity(this.maze);
 	}
 	
 	private void handleCameraZoom()

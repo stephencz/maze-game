@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import com.mazegen.entity.Entity;
+
 /**
  * 
  */
-public abstract class Maze
+public abstract class Maze extends Entity
 {		
 	/**The type of Tile that composes the maze.*/
 	protected final TileType type;
+	
+	/**A 2D array of Tile objects which represents the structure of the Maze.*/
+	protected Tile[][] maze;
 	
 	/**The number of rows in the Maze.*/
 	protected final int rows;
@@ -18,14 +23,14 @@ public abstract class Maze
 	/**The number of columns in the Maze.*/
 	protected final int columns;
 	
-	/**A 2D array of Tile objects which represents the structure of the Maze.*/
-	protected Tile[][] maze;
-	
 	/**The Tile containing the entrance to the Maze.*/
 	protected Tile entrance;
 	
 	/**The Tile containing the exit from the Maze.*/
 	protected Tile exit;
+	
+	/**The MazeDrawer which contains the rendering code for the maze.*/
+	protected final MazeDrawer drawer;
 	
 	/**
 	 * Creates a new Maze object.
@@ -34,12 +39,13 @@ public abstract class Maze
 	 * @param sides The
 	 */
 	public Maze(TileType type, int rows, int columns)
-	{
+	{		
 		this.type = type;
 		this.rows = rows;
 		this.columns = columns;
 		
 		this.maze = new Tile[rows][columns];
+		this.drawer = this.resolveMazeDrawer();
 			
 		this.entrance = null;
 		this.exit = null;
@@ -47,6 +53,18 @@ public abstract class Maze
 		this.populate();
 	}
 
+	private MazeDrawer resolveMazeDrawer()
+	{
+		if(this instanceof MazeHexagon)
+		{
+			return new MazeDrawerHexagon(this);
+		}
+		else
+		{
+			return new MazeDrawerSquare(this);
+		}
+	}
+	
 	private void populate()
 	{
 		for(int i = 0; i < this.rows; i++)
@@ -168,16 +186,6 @@ public abstract class Maze
 		return type;
 	}
 
-	public int getRows()
-	{
-		return this.rows;
-	}
-
-	public int getColumns()
-	{
-		return this.columns;
-	}
-	
 	public Tile[][] getMaze()
 	{
 		return this.maze;
@@ -186,6 +194,16 @@ public abstract class Maze
 	public void setMaze(Tile[][] maze)
 	{
 		this.maze = maze;
+	}
+	
+	public int getRows()
+	{
+		return this.rows;
+	}
+
+	public int getColumns()
+	{
+		return this.columns;
 	}
 	
 	public Tile getTile(int row, int col)
@@ -201,5 +219,10 @@ public abstract class Maze
 	public Tile getExit()
 	{
 		return this.exit;
+	}
+
+	public MazeDrawer getDrawer()
+	{
+		return drawer;
 	}
 }
