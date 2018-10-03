@@ -10,7 +10,7 @@ public class MazeDrawerSquare extends MazeDrawer
 	{
 		super(maze, 4);
 		
-		this.tileSize = 32;
+		this.tileSize = 24;
 
 	}
 	
@@ -202,5 +202,29 @@ public class MazeDrawerSquare extends MazeDrawer
 	public void setTileSize(int tileSize)
 	{
 		this.tileSize = tileSize;
+	}
+
+	@Override
+	public float getTileX(int row, int column)
+	{
+		return this.tileSize * row;
+	}
+
+	@Override
+	public float getTileY(int row, int column)
+	{
+		return this.tileSize * column;
+	}
+
+	@Override
+	public float getTileCenterX(int row, int column)
+	{
+		return (this.tileSize * row) + (this.tileSize / 2);
+	}
+
+	@Override
+	public float getTileCenterY(int row, int column)
+	{
+		return (this.tileSize * column) + (this.tileSize / 2);
 	}
 }

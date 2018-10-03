@@ -43,8 +43,8 @@ public abstract class MazeDrawer
 		
 		this.wallColor =  new Color(0f, 0f, 0f, 1.0f);
 		
-		this.entranceColor = new Color(0f, 1f, 0f, 1.0f);
-		this.exitColor = new Color(1f, 0f, 0f, 1.0f);
+		this.entranceColor = new Color(1f, 1f, 1f, 1.0f);
+		this.exitColor = new Color(1f, 1f, 1f, 1.0f);
 		
 		this.playerColor  = new Color(0f, 0f, 1f, 1.0f);
 	}
@@ -71,6 +71,14 @@ public abstract class MazeDrawer
 	abstract protected boolean isOnScreen(int i, int j);
 	
 	abstract protected void draw(int i, int j);	
+	
+	abstract public float getTileX(int row, int column);
+	
+	abstract public float getTileY(int row, int column);
+	
+	abstract public float getTileCenterX(int row, int column);
+	
+	abstract public float getTileCenterY(int row, int column);
 	
 	public Maze getMaze()
 	{

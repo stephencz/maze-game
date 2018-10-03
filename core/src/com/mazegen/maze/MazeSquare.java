@@ -1,55 +1,60 @@
 package com.mazegen.maze;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class MazeSquare extends Maze
 {		
+	
 	public MazeSquare(int rows, int columns)
 	{
 		super(TileType.SQUARE, rows, columns);
 	}
 	
 	@Override
-	public void render(float delta)
+	public void carvePath(Tile origin, Tile target)
+	{		
+		ArrayList<Tile> neighbors = this.getNeighbors(origin);
+		for(int i = 0; i < neighbors.size(); i++)
+		{
+			if(neighbors.get(i) != null && neighbors.get(i).equals(target))
+			{				
+				origin.setWall(i, false);
+				switch(i)
+				{
+					case 0: target.setWall(2, false); break;
+					case 1: target.setWall(3, false); break;
+					case 2: target.setWall(0, false); break;
+					case 3: target.setWall(1, false); break;
+					default: break;
+				}
+			}
+		}
+	}
+	
+	@Override
+	public boolean isPathClear(Tile origin, Tile target)
 	{
-		this.drawer.render();
+		ArrayList<Tile> neighbors = this.getNeighbors(origin);
+		for(int i = 0; i < neighbors.size(); i++)
+		{
+			if(neighbors.get(i) != null && neighbors.get(i).equals(target))
+			{			
+				switch(i)
+				{
+					case 0: if(!target.getWalls()[2]) { return true; } break; // MOVED NORTH
+					case 1: if(!target.getWalls()[3]) { return true; } break; // MOVED EAST
+					case 2: if(!target.getWalls()[0]) { return true; } break; // MOVED SOUTH
+					case 3: if(!target.getWalls()[1]) { return true; } break; // MOVED WEST
+					default: return false;
+				}
+			}
+		}
+		
+		return false;
 	}
 
 	@Override
-	public void dispose()
-	{
-		
-	}
-	
-	public void carvePath(Tile origin, Tile target)
-	{			
-		if(origin.getColumn() < target.getColumn())
-		{
-			origin.setWall(2, false);
-			target.setWall(0, false);
-		}
-		
-		if(origin.getColumn() > target.getColumn())
-		{
-			origin.setWall(0, false);
-			target.setWall(2, false);
-		}
-		
-		if(origin.getRow() < target.getRow())
-		{
-			origin.setWall(1, false);
-			target.setWall(3, false);
-		}
-		
-		if(origin.getRow() > target.getRow())
-		{
-			origin.setWall(3, false);
-			target.setWall(1, false);	
-		}
-	}
-	
 	public void setEntranceAndExit(Random random)
 	{
 		Tile entrance = this.getTile(random.nextInt(this.getRows()), 0);
@@ -72,8 +77,6 @@ public class MazeSquare extends Maze
 		neighbors.add(this.getEastNeighbor(tile));
 		neighbors.add(this.getSouthNeighbor(tile));
 		neighbors.add(this.getWestNeighbor(tile));
-
-		neighbors.removeAll(Collections.singleton(null));
 		
 		return neighbors;
 	}
@@ -85,12 +88,9 @@ public class MazeSquare extends Maze
 	 */
 	private Tile getNorthNeighbor(Tile tile)
 	{
-		if(this.isWithinBounds(tile.getRow() - 1, tile.getColumn()))
+		if(this.isWithinBounds(tile.getRow(), tile.getColumn() - 1))
 		{
-			if(this.getTile(tile.getRow() - 1, tile.getColumn()) != null)
-			{
-				return this.getTile(tile.getRow() - 1, tile.getColumn());
-			}
+			return this.getTile(tile.getRow(), tile.getColumn() - 1);
 		}
 		
 		return null;
@@ -103,12 +103,9 @@ public class MazeSquare extends Maze
 	 */
 	private Tile getSouthNeighbor(Tile tile)
 	{
-		if(this.isWithinBounds(tile.getRow() + 1, tile.getColumn()))
+		if(this.isWithinBounds(tile.getRow(), tile.getColumn() + 1))
 		{
-			if(this.getTile(tile.getRow() + 1, tile.getColumn()) != null)
-			{
-				return this.getTile(tile.getRow() + 1, tile.getColumn());
-			}
+			return this.getTile(tile.getRow(), tile.getColumn() + 1);
 		}
 		
 		return null;
@@ -121,12 +118,10 @@ public class MazeSquare extends Maze
 	 */
 	private Tile getEastNeighbor(Tile tile)
 	{
-		if(this.isWithinBounds(tile.getRow(), tile.getColumn() + 1))
+		if(this.isWithinBounds(tile.getRow() + 1, tile.getColumn()))
 		{
-			if(this.getTile(tile.getRow(), tile.getColumn() + 1) != null)
-			{
-				return this.getTile(tile.getRow(), tile.getColumn() + 1);
-			}
+
+			return this.getTile(tile.getRow() + 1, tile.getColumn());
 		}
 		
 		return null;
@@ -139,14 +134,12 @@ public class MazeSquare extends Maze
 	 */
 	private Tile getWestNeighbor(Tile tile)
 	{
-		if(this.isWithinBounds(tile.getRow(), tile.getColumn() - 1))
+		if(this.isWithinBounds(tile.getRow() - 1, tile.getColumn()))
 		{
-			if(this.getTile(tile.getRow(), tile.getColumn() - 1) != null)
-			{
-				return this.getTile(tile.getRow(), tile.getColumn() - 1);
-			}
+			return this.getTile(tile.getRow() - 1, tile.getColumn());
 		}
 		
 		return null;
 	}
+	
 }

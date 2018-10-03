@@ -1,5 +1,19 @@
 package com.mazegen.maze;
 
+/**
+ * The Tile class represents a walled tile that is used to build
+ * mazes. The class is very flexible and can technically support
+ * tiles with any number of walls. Although, not all shapes can be
+ * easily arranged to compose a coherent maze. That being said, Tile
+ * objects act as data bags. They contain information about the walls,
+ * the maze they belong to, their position in that maze, and various
+ * flags useful for generation and display. Actually display is delegated
+ * to {@link MazeDrawer} objects and generation to the {@link MazeFactory}
+ * class.
+ * 
+ * @author Stephen Czekalski
+ *
+ */
 public class Tile
 {	
 	/**The Maze object that the Tile belongs to.*/

@@ -154,6 +154,8 @@ public class MazeDrawerHexagon extends MazeDrawer
 		}
 	}
 	
+	// ADVERT YOUR EYES!!! DISGUSTING CODE INCOMING!!!
+	
 	private void drawEvenNorthWall(int i, int j)
 	{
 		Driver.shape.rect(this.tbLeft + (this.tileWidth * i),
@@ -257,5 +259,58 @@ public class MazeDrawerHexagon extends MazeDrawer
 				(i * this.tileWidth)  - (this.wallSize / 2), 
 				(j * this.tileHeight) + (this.tileHeight / 2) + this.wallSize / 2, 
 				this.wallSize);
+	}
+	
+	// ITS SAFE FOR YOU TO LOOK NOW!!!
+	
+	public float getTileWidth()
+	{
+		return tileWidth;
+	}
+
+	public float getTileHeight()
+	{
+		return tileHeight;
+	}
+
+	public float getTbLeft()
+	{
+		return tbLeft;
+	}
+
+	public float getTbRight()
+	{
+		return tbRight;
+	}
+
+	@Override
+	public float getTileX(int row, int column)
+	{
+		return this.tbLeft + (this.tileWidth * row);
+	}
+
+	@Override
+	public float getTileY(int row, int column)
+	{
+		if((row + 1) % 2 == 0)
+		{
+			return this.tileHeight / 2 + (this.tileHeight * column);
+		}
+		else
+		{
+			return (this.tileHeight * column);
+		} 
+	}
+
+	@Override
+	public float getTileCenterX(int row, int column)
+	{
+		return this.getTileX(row, column) + this.tbRight / 2;
+	}
+
+	@Override
+	public float getTileCenterY(int row, int column)
+	{
+		return this.getTileY(row, column) + this.tileHeight / 2;
 	}
 }
