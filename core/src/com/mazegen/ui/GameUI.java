@@ -256,6 +256,7 @@ public class GameUI extends Stage
 				Gdx.input.setInputProcessor(this);
 				this.mazeWidthInput.setText(Integer.toString(screen.getMazeWidth()));
 				this.mazeHeightInput.setText(Integer.toString(screen.getMazeHeight()));
+				this.zoomInput.setText(Float.toString(Driver.camera.zoom));
 			}
 			else
 			{
