@@ -41,4 +41,5 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Screenshots
 ![A Square Maze](/screenshots/square.png?raw=true "A Square Maze")
+![A Hexagon Maze](/screenshots/square.png?raw=true "A Hexagon Maze")
 
