@@ -7,6 +7,8 @@ A game that generates square or hexagonal mazes which a player can then solve. M
 - Java 8 or higher
 - An IDE that can import Gradle projects
 
+## Design
+An overview of my thoughts when designing this game can be found on [my personal website](https://www.stephencz.com/overview-maze-game).
 
 ## Controls
 
@@ -26,9 +28,6 @@ A game that generates square or hexagonal mazes which a player can then solve. M
 - `A` - Move south-east.
 - `S` - Move south.
 - `D` - Move south-west.
-
-## Design
-An overview of my thoughts when designing this game can be found on [my personal website](https://www.stephencz.com/overview-maze-game).
 
 ## Built With
 - [LibGDX](https://libgdx.badlogicgames.com/) - Framework used for handling graphics and input.
