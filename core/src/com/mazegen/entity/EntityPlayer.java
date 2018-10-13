@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.mazegen.main.Driver;
@@ -15,25 +14,19 @@ import com.mazegen.maze.Tile;
 import com.mazegen.maze.TileType;
 
 public class EntityPlayer extends Entity
-{
+{	
+	public static final float MAX_ZOOM = 10f;
+	public static final float MIN_ZOOM = 1f;
 	
-	private static final float MAX_ZOOM = 10.0f;
-	
-	private static final float INITIAL_ZOOM = 5.0f;
-	
-	private static final float MIN_ZOOM = 1.0f;
-		
 	public EntityPlayer(Maze maze, Tile tile)
 	{
 		super(maze, tile);
-		
-		Driver.camera.zoom = INITIAL_ZOOM;
 	}
 
 	@Override
 	public void update(float delta)
 	{
-		this.handlePlayerMovement();
+		this.handlePlayerMovement();	
 		this.trackPlayerMovement();
 		this.handleCameraZoom();
 	}
@@ -141,24 +134,24 @@ public class EntityPlayer extends Entity
 		float x = this.maze.getDrawer().getTileCenterX(this.tile.getRow(), this.tile.getColumn());
 		float y = this.maze.getDrawer().getTileCenterY(this.tile.getRow(), this.tile.getColumn());
 		
-		Driver.camera.position.lerp(new Vector3((int) x, (int) y, 0), 0.05f);
+		Driver.camera.position.lerp(new Vector3((int) x, (int) y, 0), 0.15f);
 	}
 	
 	private void handleCameraZoom()
 	{
-		if(Gdx.input.isKeyJustPressed(Keys.U))
+		if(Gdx.input.isKeyJustPressed(Keys.Z))
 		{
-			if(Driver.camera.zoom > MIN_ZOOM)
+			if(Driver.camera.zoom <= MAX_ZOOM)
 			{
-				Driver.camera.zoom -=  1.0f;
+				Driver.camera.zoom += 1f;
 			}
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Keys.I))
+		if(Gdx.input.isKeyJustPressed(Keys.X))
 		{
-			if(Driver.camera.zoom < MAX_ZOOM)
+			if(Driver.camera.zoom > MIN_ZOOM)
 			{
-				Driver.camera.zoom += 1.0f;
+				Driver.camera.zoom -= 1f;
 			}
 		}
 	}
@@ -180,7 +173,7 @@ public class EntityPlayer extends Entity
 		MazeDrawerSquare drawer = (MazeDrawerSquare) this.maze.getDrawer();
 					
 		Driver.shape.begin(ShapeType.Filled);
-		Driver.shape.setColor(Color.RED);
+		Driver.shape.setColor(this.maze.getDrawer().getPlayerColor());
 		Driver.shape.rect(this.maze.getDrawer().getTileCenterX(this.tile.getRow(), this.tile.getColumn()) - drawer.getTileSize() / 6,
 				this.maze.getDrawer().getTileCenterY(this.tile.getRow(), this.tile.getColumn()) - drawer.getTileSize() / 6, 
 				drawer.getTileSize() / 2, 
@@ -193,7 +186,7 @@ public class EntityPlayer extends Entity
 		MazeDrawerHexagon drawer = (MazeDrawerHexagon) this.maze.getDrawer();
 		
 		Driver.shape.begin(ShapeType.Filled);
-		Driver.shape.setColor(Color.RED);
+		Driver.shape.setColor(this.maze.getDrawer().getPlayerColor());
 		Driver.shape.rect(this.maze.getDrawer().getTileCenterX(this.tile.getRow(), this.tile.getColumn()) - drawer.getTileWidth() / 8,
 				this.maze.getDrawer().getTileCenterY(this.tile.getRow(), this.tile.getColumn()) - drawer.getTileHeight() / 8, 
 				drawer.getTileWidth() / 4, 
@@ -206,5 +199,4 @@ public class EntityPlayer extends Entity
 	{
 		
 	}
-	
 }

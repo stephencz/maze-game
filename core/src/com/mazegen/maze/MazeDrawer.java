@@ -28,15 +28,33 @@ public abstract class MazeDrawer
 	
 	protected Color playerColor;
 	
+	protected static ColorScheme colorScheme = ColorScheme.LIGHT;
+	
 	public MazeDrawer(Maze maze, int wallSize)
 	{
 		this.maze = maze;
 		
 		this.mazeWidth = maze.getRows();
 		this.mazeHeight = maze.getColumns();
-		
+	
 		this.wallSize = wallSize;
 		
+		this.resolveColorMode();
+	}
+	
+	private void resolveColorMode()
+	{
+		switch(colorScheme)
+		{
+		case LIGHT: this.setLightModeColors(); break;
+		case DARK: this.setDarkModeColors(); break;
+		case CUSTOM: this.setCustomModeColors(); break;
+		default: this.setLightModeColors(); break;
+		}
+	}
+	
+	private void setLightModeColors()
+	{		
 		this.bgColor = new Color(1f, 1f, 1f, 1.0f);
 		this.tileColor = new Color(1f, 1f, 1f, 1.0f);
 		this.visitedColor = new Color(1f, 1f, 1f, 1.0f);
@@ -46,7 +64,26 @@ public abstract class MazeDrawer
 		this.entranceColor = new Color(1f, 1f, 1f, 1.0f);
 		this.exitColor = new Color(1f, 1f, 1f, 1.0f);
 		
-		this.playerColor  = new Color(0f, 0f, 1f, 1.0f);
+		this.playerColor  = new Color(1f, 0f, 0f, 1.0f);
+	}
+	
+	private void setDarkModeColors()
+	{		
+		this.bgColor = new Color(0f, 0f, 0f, 0f);
+		this.tileColor = new Color(0f, 0f, 0f, 0f);
+		this.visitedColor = new Color(0f, 0f, 0f, 0f);
+		
+		this.wallColor =  new Color(1f, 1f, 1f, 1.0f);
+		
+		this.entranceColor = new Color(0f, 0f, 0f, 0f);
+		this.exitColor = new Color(0f, 0f, 0f, 0f);
+		
+		this.playerColor  = new Color(0f, 1f, 0f, 1.0f);
+	}
+	
+	private void setCustomModeColors()
+	{
+		
 	}
 	
 	public void render()
@@ -190,5 +227,16 @@ public abstract class MazeDrawer
 	public void setPlayerColor(Color playerColor)
 	{
 		this.playerColor = playerColor;
+	}
+
+	public ColorScheme getColorScheme()
+	{
+		return colorScheme;
+	}
+
+	public void setColorScheme(ColorScheme colorScheme)
+	{
+		MazeDrawer.colorScheme = colorScheme;
+		this.resolveColorMode();
 	}
 }
