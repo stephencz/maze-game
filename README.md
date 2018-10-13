@@ -31,10 +31,14 @@ An overview of my thinking behind the design aspects of this game can be found o
 
 ## Built With
 - [LibGDX](https://libgdx.badlogicgames.com/) - Framework used for handling graphics and input.
-- [Scene2d](https://github.com/libgdx/libgdx/wiki/Scene2d) - Library used for UI.
+- [Scene2d](https://github.com/libgdx/libgdx/wiki/Scene2d) - Library used for UI
 
 ## Author
 - **Stephen Czekalski** - Sole programmer and maintainer.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
+
+## Screenshots
+![A Square Maze](/screenshots/square.png?raw=true "A Square Maze")
+
