@@ -15,6 +15,7 @@ An overview of my thoughts when designing this game can be found on [my personal
 
 #### General
 - `H` - Show or hide generation settings panel.
+- `R` - Regenerate the maze.
 
 #### Square Maze Controls
 - `W` - Move north.
