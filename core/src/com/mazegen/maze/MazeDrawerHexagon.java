@@ -31,7 +31,15 @@ public class MazeDrawerHexagon extends MazeDrawer
 	@Override
 	protected boolean isOnScreen(int i, int j)
 	{
-		return true;
+		float x = (i * this.tileWidth);
+		float y = (j * this.tileHeight);
+		
+		if(Driver.camera.frustum.boundsInFrustum(x, y, 0f, this.tileWidth, this.tileHeight, 0f))
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	@Override

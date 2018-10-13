@@ -37,7 +37,6 @@ public abstract class Entity
 	{				
 		this.maze = maze;
 		this.tile = this.maze.getTile(0, 0);
-		
 	}
 	
 	/**
@@ -72,25 +71,19 @@ public abstract class Entity
 	/**Disposes of resources allocated by the Entity.*/
 	abstract public void dispose();
 
-	/**
-	 * @return Gets the Maze the Entity exists within.
-	 */
+	/*** @return Gets the Maze the Entity exists within. */
 	public Maze getMaze()
 	{
 		return this.maze;
 	}
 	
-	/**
-	 * @return Gets the Tile the Entity exists at.
-	 */
+	/*** @return Gets the Tile the Entity exists at.*/
 	public Tile getTile()
 	{
 		return this.tile;
 	}
 	
-	/**
-	 * @param tile The Tile the Entity exists at.
-	 */
+	/*** @param tile The Tile the Entity exists at.*/
 	public void setTile(Tile tile)
 	{
 		this.tile = tile;

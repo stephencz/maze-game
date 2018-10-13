@@ -15,8 +15,6 @@ import com.mazegen.maze.TileType;
 
 public class EntityPlayer extends Entity
 {	
-	public static final float MAX_ZOOM = 10f;
-	public static final float MIN_ZOOM = 1f;
 	
 	public EntityPlayer(Maze maze, Tile tile)
 	{
@@ -28,7 +26,6 @@ public class EntityPlayer extends Entity
 	{
 		this.handlePlayerMovement();	
 		this.trackPlayerMovement();
-		this.handleCameraZoom();
 	}
 
 	@Override
@@ -135,25 +132,6 @@ public class EntityPlayer extends Entity
 		float y = this.maze.getDrawer().getTileCenterY(this.tile.getRow(), this.tile.getColumn());
 		
 		Driver.camera.position.lerp(new Vector3((int) x, (int) y, 0), 0.15f);
-	}
-	
-	private void handleCameraZoom()
-	{
-		if(Gdx.input.isKeyJustPressed(Keys.Z))
-		{
-			if(Driver.camera.zoom <= MAX_ZOOM)
-			{
-				Driver.camera.zoom += 1f;
-			}
-		}
-		
-		if(Gdx.input.isKeyJustPressed(Keys.X))
-		{
-			if(Driver.camera.zoom > MIN_ZOOM)
-			{
-				Driver.camera.zoom -= 1f;
-			}
-		}
 	}
 	
 	private void drawPlayer()

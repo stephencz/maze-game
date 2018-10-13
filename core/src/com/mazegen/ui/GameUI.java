@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.mazegen.main.Driver;
 import com.mazegen.main.GameInfo;
 import com.mazegen.maze.GenerationType;
 import com.mazegen.maze.TileType;
@@ -45,19 +46,23 @@ public class GameUI extends Stage
 	
 	private Label tileTypeLabel;
 	
-	private SelectBox<TileType> tileTypeSelectBox;
-	
 	private Label genTypeLabel;
-	
-	private SelectBox<GenerationType> genTypeSelectBox;
 	
 	private Label mazeWidthLabel;
 	
-	private TextField mazeWidthInput;
-	
 	private Label mazeHeightLabel;
 	
+	private Label zoomLabel;
+	
+	private SelectBox<TileType> tileTypeSelectBox;
+	
+	private SelectBox<GenerationType> genTypeSelectBox;
+	
+	private TextField mazeWidthInput;
+	
 	private TextField mazeHeightInput;
+	
+	private TextField zoomInput;
 	
 	private TextButton generateButton;
 	
@@ -83,9 +88,9 @@ public class GameUI extends Stage
 
 		//Create the Primary Table
 		this.table = new Table();		
-		this.table.setPosition(100f, 100f);
+		this.table.setPosition(100f, 75f);
 		this.table.setWidth(300);
-		this.table.setHeight(GameInfo.WORLD_HEIGHT - 200f);
+		this.table.setHeight(GameInfo.WORLD_HEIGHT - 150f);
 		this.table.align(Align.top);
 		this.table.pad(10f);
 		
@@ -112,7 +117,7 @@ public class GameUI extends Stage
 		
 		this.tileTypeSelectBox = new SelectBox<TileType>(this.skin);
 		this.tileTypeSelectBox.setItems(TileType.values());
-		this.table.add(this.tileTypeSelectBox).align(Align.left);
+		this.table.add(this.tileTypeSelectBox).align(Align.left).fillX();
 		this.table.row().padBottom(10f);
 		
 		//Generation Type Label and Select Box
@@ -122,7 +127,7 @@ public class GameUI extends Stage
 		
 		this.genTypeSelectBox = new SelectBox<GenerationType>(this.skin);
 		this.genTypeSelectBox.setItems(GenerationType.values());
-		this.table.add(this.genTypeSelectBox).align(Align.left);
+		this.table.add(this.genTypeSelectBox).align(Align.left).fillX();
 		this.table.row().padBottom(10f);
 		
 		//Maze Width Label and Input
@@ -131,7 +136,7 @@ public class GameUI extends Stage
 		this.table.add(this.mazeWidthLabel).align(Align.left);
 		
 		this.mazeWidthInput = new TextField(Integer.toString(screen.getMazeWidth()), this.skin);
-		this.table.add(this.mazeWidthInput).align(Align.left);
+		this.table.add(this.mazeWidthInput).align(Align.left).fillX();
 		this.table.row().padBottom(10f);
 		
 		//Maze Height Label and Input
@@ -140,14 +145,24 @@ public class GameUI extends Stage
 		this.table.add(this.mazeHeightLabel).align(Align.left);
 		
 		this.mazeHeightInput = new TextField(Integer.toString(screen.getMazeHeight()), this.skin);
-		this.table.add(this.mazeHeightInput).align(Align.left);
+		this.table.add(this.mazeHeightInput).align(Align.left).fillX();
+		this.table.row().padBottom(10f);
+		
+		//Zoom Label and Input
+		this.zoomLabel = new Label("Zoom: ", this.skin);
+		this.zoomLabel.setColor(Color.WHITE);
+		this.table.add(this.zoomLabel).align(Align.left);
+		
+		this.zoomInput = new TextField(Float.toString(Driver.camera.zoom), this.skin);
+		this.table.add(this.zoomInput).align(Align.left).fillX();
 		this.table.row().padBottom(10f);
 		
 		//Generate Button
 		this.generateButton = new TextButton("Generate", this.skin);
-		this.table.add(this.generateButton).colspan(2).align(Align.center);
+		this.table.add(this.generateButton).colspan(2).align(Align.center).fillX();
 		
 		this.table.setVisible(false);
+		this.uiCamera.zoom = 1.5f;
 	}
 	
 	private void initUIEvents()
@@ -157,52 +172,77 @@ public class GameUI extends Stage
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				//Get maze tile type and generation type
 				screen.setTileType(tileTypeSelectBox.getSelected());
 				screen.setGenType(genTypeSelectBox.getSelected());
 				
-				//Try and get maze width from text input
-				try
-				{
-					int width = Integer.parseInt(mazeWidthInput.getText());
-					if(width > 1 && width <= 1000)
-					{
-						screen.setMazeWidth(width);
-						screen.createMaze(screen.getTileType(), screen.getGenType(), screen.getMazeWidth(), screen.getMazeHeight());
-					}
-					else
-					{
-						mazeWidthInput.setText("ERROR");
-					}
-				}
-				catch(NumberFormatException e)
-				{
-					mazeWidthInput.setText("ERROR");
-				}
+				getAndSetMazeWidth();
+				getAndSetMazeHeight();
+				getAndSetCameraZoom();
 				
-				//Try and get maze height from text input
-				try
-				{
-					int height = Integer.parseInt(mazeHeightInput.getText());
-					if(height > 1 && height <= 1000)
-					{
-						screen.setMazeHeight(height);
-						screen.createMaze(screen.getTileType(), screen.getGenType(), screen.getMazeWidth(), screen.getMazeHeight());
-					}
-					else
-					{
-						mazeHeightInput.setText("ERROR");
-					}
-				}
-				catch(NumberFormatException e)
-				{
-					mazeHeightInput.setText("ERROR");
-				}
+				screen.createMaze(screen.getTileType(), screen.getGenType(), screen.getMazeWidth(), screen.getMazeHeight());
 			}
 		});		
 	}
 	
+	private void getAndSetMazeWidth()
+	{
+		try
+		{
+			int width = Integer.parseInt(mazeWidthInput.getText());
+			if(width > 1 && width <= 1000)
+			{
+				screen.setMazeWidth(width);
+			}
+			else
+			{
+				mazeWidthInput.setText(Integer.toString(screen.getMazeWidth()));
+			}
+		}
+		catch(NumberFormatException e)
+		{
+			mazeWidthInput.setText(Integer.toString(screen.getMazeWidth()));
+		}
+	}
 	
+	private void getAndSetMazeHeight()
+	{
+		try
+		{
+			int height = Integer.parseInt(mazeHeightInput.getText());
+			if(height > 1 && height <= 1000)
+			{
+				screen.setMazeHeight(height);
+			}
+			else
+			{
+				mazeHeightInput.setText(Integer.toString(screen.getMazeHeight()));
+			}
+		}
+		catch(NumberFormatException e)
+		{
+			mazeHeightInput.setText(Integer.toString(screen.getMazeHeight()));
+		}
+	}
+	
+	private void getAndSetCameraZoom()
+	{
+		try
+		{
+			float zoom = Float.parseFloat(zoomInput.getText());
+			if(zoom >= 1f)
+			{
+				Driver.camera.zoom = zoom;
+			}
+			else
+			{
+				zoomInput.setText(Float.toString(Driver.camera.zoom));
+			}
+		}
+		catch(NumberFormatException e)
+		{
+			zoomInput.setText(Float.toString(Driver.camera.zoom));
+		}
+	}
 	
 	//Show or Hide Settings Menu
 	@Override

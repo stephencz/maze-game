@@ -59,17 +59,13 @@ public class EntityManager
 		}
 	}
 	
-	/**
-	 * @return An ArrayList of Entity objects.
-	 */
+	/*** @return An ArrayList of Entity objects.*/
 	public ArrayList<Entity> getEntities()
 	{
 		return this.entities;
 	}
 	
-	/**
-	 * @param entities An ArrayList of Entity objects.
-	 */
+	/** @param entities An ArrayList of Entity objects.*/
 	public void setEntity(ArrayList<Entity> entities)
 	{
 		this.entities = entities;
@@ -84,25 +80,19 @@ public class EntityManager
 		return this.entities.get(index);
 	}
 	
-	/**
-	 * @param entity The entity to add to the manager.
-	 */
+	/*** @param entity The entity to add to the manager.*/
 	public void addEntity(Entity entity)
 	{
 		this.entities.add(entity);
 	}	
 	
-	/**
-	 * @param index Removes the Entity corresponding to the passed in index value.
-	 */
+	/*** @param index Removes the Entity corresponding to the passed in index value.*/
 	public void removeEntity(int index)
 	{
 		this.entities.remove(index);
 	}
 	
-	/**
-	 * @param entity Removes the passed in Entity object from the manager.
-	 */
+	/*** @param entity Removes the passed in Entity object from the manager.*/
 	public void removeEntity(Entity entity)
 	{
 		this.entities.remove(entity);
