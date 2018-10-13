@@ -1,8 +1,6 @@
 # Maze-Game
 A game that generates square or hexagonal mazes which a player can then solve. Made in Java with the LibGDX framework. 
-
-## Design
-An overview of my thoughts when designing this game can be found on [my personal website](https://www.stephencz.com/overview-maze-game).
+An overview of my thinking behind the design aspects of this game can be found on [my personal website](https://www.stephencz.com/overview-maze-game).
 
 ## Getting Started
 
