@@ -1,5 +1,6 @@
 # Maze-Game
 A game that generates square or hexagonal mazes which a player can then solve. Made in Java with the LibGDX framework. 
+**No longer being maintained.**
 
 ## Getting Started
 
